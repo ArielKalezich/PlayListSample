@@ -14,7 +14,15 @@ namespace PlayListSample.ViewModels;
 public class MainViewModel : BaseViewModel
 {
     private readonly IVideoService _videoService;
-    private readonly List<VideoItem> _videos = new();
+    private  List<VideoItem> _videos = new();
+
+    public List<VideoItem> Videos
+    {
+        get { return _videos; }
+        set { _videos = value;
+            OnPropertyChanged(); }
+      
+    }
     private int _currentIndex = 0;
 
     private VideoItem? _currentVideo;
@@ -43,7 +51,7 @@ public class MainViewModel : BaseViewModel
         NextCommand = new Command(ExecuteNext, CanExecuteNext);
         PreviousCommand = new Command(ExecutePrevious, CanExecutePrevious);
         SaveCommand = new Command(async () => await ExecuteSaveAsync(), () => IsNotLoading);
-        ToggleWatchedCommand = new Command(async () => await ExecuteToggleWatchedAsync(), () => CurrentVideo != null && IsNotLoading);
+        ToggleWatchedCommand = new Command<VideoItem>(async (v) => await ExecuteToggleWatchedAsync(v), (v) => v != null && IsNotLoading);
         ClearFormCommand = new Command(ExecuteClearForm, () => IsNotLoading);
 
         load = LoadVideosAsync();
@@ -146,9 +154,10 @@ public class MainViewModel : BaseViewModel
         RefreshCommands();
 
         var loaded = await _videoService.GetAllVideosAsync();
-        _videos.Clear();
-        _videos.AddRange(loaded);
-
+       // Videos.Clear();
+        //Videos.AddRange(loaded);
+        //OnPropertyChanged(nameof(Videos));
+        Videos= loaded;
         _currentIndex = 0;
         UpdateCurrentVideo();
 
@@ -184,19 +193,19 @@ public class MainViewModel : BaseViewModel
         return IsNotLoading && _videos.Count > 0 && _currentIndex > 0;
     }
 
-    private async Task ExecuteToggleWatchedAsync()
+    private async Task ExecuteToggleWatchedAsync(VideoItem v)
     {
-        if (CurrentVideo == null) return;
+        if (v == null) return;
 
         IsLoading = true;
         RefreshCommands();
 
-        CurrentVideo.IsWatched = !CurrentVideo.IsWatched;
-        await _videoService.UpdateVideoAsync(CurrentVideo);
+        v.IsWatched = !v.IsWatched;
+        await _videoService.UpdateVideoAsync(v);
 
         // רענון התצוגה של הפריט הנוכחי
-        OnPropertyChanged(nameof(CurrentVideo));
-        StatusMessage = CurrentVideo.IsWatched ? "הסרטון סומן כנצפה!" : "הסרטון סומן כלא נצפה.";
+        await LoadVideosAsync();
+        StatusMessage = v.IsWatched ? "הסרטון סומן כנצפה!" : "הסרטון סומן כלא נצפה.";
 
         IsLoading = false;
         RefreshCommands();
