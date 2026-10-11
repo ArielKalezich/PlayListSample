@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using PlayListSample.Models;
 using PlayListSample.Services;
 
@@ -14,7 +15,8 @@ namespace PlayListSample.ViewModels;
 public class MainViewModel : BaseViewModel
 {
     private readonly IVideoService _videoService;
-    private  List<VideoItem> _videos = new();
+   public ObservableCollection<VideoItem> Videos { get; set; }
+    /* private  List<VideoItem> _videos = new();
 
     public List<VideoItem> Videos
     {
@@ -23,6 +25,7 @@ public class MainViewModel : BaseViewModel
             OnPropertyChanged(); }
       
     }
+   */
     private int _currentIndex = 0;
 
     private VideoItem? _currentVideo;
@@ -154,10 +157,13 @@ public class MainViewModel : BaseViewModel
         RefreshCommands();
 
         var loaded = await _videoService.GetAllVideosAsync();
-       // Videos.Clear();
-        //Videos.AddRange(loaded);
+        //Videos.Clear();
+        // Videos.AddRange(loaded);
         //OnPropertyChanged(nameof(Videos));
-        Videos= loaded;
+        //Videos= loaded;
+        Videos = new ObservableCollection<VideoItem>(loaded);
+        OnPropertyChanged(nameof(Videos));
+
         _currentIndex = 0;
         UpdateCurrentVideo();
 
@@ -167,7 +173,7 @@ public class MainViewModel : BaseViewModel
 
     private void ExecuteNext()
     {
-        if (_currentIndex < _videos.Count - 1)
+        if (_currentIndex < Videos.Count - 1)
         {
             _currentIndex++;
             UpdateCurrentVideo();
@@ -176,7 +182,7 @@ public class MainViewModel : BaseViewModel
 
     private bool CanExecuteNext()
     {
-        return IsNotLoading && _videos.Count > 0 && _currentIndex < _videos.Count - 1;
+        return IsNotLoading && Videos.Count > 0 && _currentIndex < Videos.Count - 1;
     }
 
     private void ExecutePrevious()
@@ -190,7 +196,7 @@ public class MainViewModel : BaseViewModel
 
     private bool CanExecutePrevious()
     {
-        return IsNotLoading && _videos.Count > 0 && _currentIndex > 0;
+        return IsNotLoading && Videos.Count > 0 && _currentIndex > 0;
     }
 
     private async Task ExecuteToggleWatchedAsync(VideoItem v)
@@ -237,10 +243,10 @@ public class MainViewModel : BaseViewModel
         };
 
         await _videoService.AddVideoAsync(newVideo);
-        _videos.Add(newVideo);
+        Videos.Add(newVideo);
 
         // מעבר מיידי לסרטון החדש שנוסף
-        _currentIndex = _videos.Count - 1;
+        _currentIndex = Videos.Count - 1;
         UpdateCurrentVideo();
 
         // איפוס שדות הטופס
@@ -261,10 +267,10 @@ public class MainViewModel : BaseViewModel
 
     private void UpdateCurrentVideo()
     {
-        if (_videos.Count > 0 && _currentIndex >= 0 && _currentIndex < _videos.Count)
+        if (Videos.Count > 0 && _currentIndex >= 0 && _currentIndex < Videos.Count)
         {
-            CurrentVideo = _videos[_currentIndex];
-            CurrentPositionText = $"סרטון {_currentIndex + 1} מתוך {_videos.Count}";
+            CurrentVideo = Videos[_currentIndex];
+            CurrentPositionText = $"סרטון {_currentIndex + 1} מתוך {Videos.Count}";
         }
         else
         {

@@ -26,20 +26,32 @@
 
             <!--  כרטיסייה 1: דפדוף ותצוגת פריט בודד מתוך השירות הסטטי  -->
             <CollectionView ItemsSource="{Binding Videos}">
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <VerticalStackLayout>
+                            <Image HeightRequest="150" WidthRequest="150" Source="dotnet_bot.png"/>
+                            <Label HorizontalTextAlignment="Center" Text="אין מה לראות פה" TextColor="Green" FontSize="50"/>
+                        </VerticalStackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:VideoItem">
                         <VerticalStackLayout>
                             <Label FontAttributes="Bold" FontSize="15"
-     Text="{Binding Title, StringFormat='כותרת: {0}'}" />
+     
+                                   Text="{Binding Title, StringFormat='כותרת: {0}'}" />
 
                             <Label Text="{Binding ChannelName, StringFormat='ערוץ: {0}'}" />
 
                             <Label Text="{Binding FormattedDuration, StringFormat='משך: {0}'}" />
 
                             <Label
-     LineBreakMode="TailTruncation"
-     Text="{Binding Url, StringFormat='כתובת אינטרנט: {0}'}"
-     TextColor="DarkBlue" />
+    
+                                LineBreakMode="TailTruncation"
+     
+                                Text="{Binding Url, StringFormat='כתובת אינטרנט: {0}'}"
+     
+                                TextColor="DarkBlue" />
 
                             <Label Text="{Binding WatchedStatusText, StringFormat='סטטוס: {0}'}" />
 
