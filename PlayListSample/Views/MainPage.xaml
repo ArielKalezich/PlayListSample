@@ -25,7 +25,7 @@
                 IsVisible="{Binding IsLoading}" />
 
             <!--  כרטיסייה 1: דפדוף ותצוגת פריט בודד מתוך השירות הסטטי  -->
-            <CollectionView ItemsSource="{Binding Videos}">
+            <CollectionView SelectionMode="Multiple"  ItemsSource="{Binding Videos}">
                 <CollectionView.EmptyView>
                     <ContentView>
                         <VerticalStackLayout>
