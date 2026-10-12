@@ -4,6 +4,7 @@
              x:Class="PlayListSample.AppShell"
              xmlns:views="clr-namespace:PlayListSample.Views"
              Title="AppShell">
+  
     <ShellContent
       Title="Home"
       ContentTemplate="{DataTemplate views:MainPage}"
