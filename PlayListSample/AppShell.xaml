@@ -3,10 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PlayListSample.AppShell"
              xmlns:views="clr-namespace:PlayListSample.Views"
-             Title="AppShell">
-  
-    <ShellContent
-      Title="Home"
+             Title="AppShell"
+       FlowDirection="RightToLeft">
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Green"
+                  HeightRequest="200">
+                <Image Aspect="AspectFill"
+                       Source="dotnet_bot.png"          
+                       Opacity="0.6" />
+                <Label Text="Animals"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+     
+            <ShellContent
+      Title="ליה"
       ContentTemplate="{DataTemplate views:MainPage}"
       Route="MainPage" />
+           
+
+   
+
+
+
 </Shell>
