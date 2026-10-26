@@ -8,8 +8,8 @@
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid BackgroundColor="Green"
-                  HeightRequest="200">
-                <Image Aspect="AspectFill"
+                  HeightRequest="50">
+                <Image Aspect="AspectFit"
                        Source="dotnet_bot.png"          
                        Opacity="0.6" />
                 <Label Text="Animals"
@@ -21,14 +21,53 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-     
-            <ShellContent
-      Title="ליה"
+    <TabBar Title="תפריט">
+        <Tab Title="דף 1">
+        <ShellContent
+Title="איילת"
+ContentTemplate="{DataTemplate views:MainPage}"
+Route="MainPage" />
+            <ShellContent Title="דף דוגמה"
+    ContentTemplate="{DataTemplate views:PageSample3}"
+    Route="ListItem"
+    >
+
+            </ShellContent>
+        </Tab>
+       
+        <!--Tab Title="דף 2">
+            <ShellContent Title=""
+                ContentTemplate="{DataTemplate views:PlayListItem}"
+                Route="ListItem"
+                >
+
+            </ShellContent>
+        </Tab-->
+
+    </TabBar>
+    <!--FlyoutItem FlyoutIcon="dotnet_bot.png" Title="דף ראשי">
+      <ShellContent
+      Title="איילת"
       ContentTemplate="{DataTemplate views:MainPage}"
       Route="MainPage" />
-           
 
-   
+        <ShellContent Title="פרטי פלייסיט"
+                     ContentTemplate="{DataTemplate views:Sample3}"
+                     Route="ListItem"
+                     />
+
+
+    </FlyoutItem>
+    < FlyoutItem Title="דף 2">
+        <ShellContent Title="פרטי פלייסיט"
+                      ContentTemplate="{DataTemplate views:PlayListItem}"
+                      Route="ListItem"
+                      >
+            
+        </ShellContent>
+
+    </FlyoutItem-->
+
 
 
 

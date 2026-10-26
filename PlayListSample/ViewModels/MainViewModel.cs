@@ -45,14 +45,14 @@ public class MainViewModel : BaseViewModel
     public ICommand ToggleWatchedCommand { get; }
     public ICommand ClearFormCommand { get; }
 
-    public ICommand NavigateToOtherPageCommand { get; }
+
 
     private Task load;
     public MainViewModel(IVideoService videoService)
     {
         _videoService = videoService;
         Title = "ניהול פלייליסט - חזרה על MVVM";
-        NavigateToOtherPageCommand = new Command(async () => await NavigateToOtherPage());
+       
         NextCommand = new Command(ExecuteNext, CanExecuteNext);
         PreviousCommand = new Command(ExecutePrevious, CanExecutePrevious);
         SaveCommand = new Command(async () => await ExecuteSaveAsync(), () => IsNotLoading);
@@ -291,14 +291,16 @@ public class MainViewModel : BaseViewModel
         ((Command)ToggleWatchedCommand).ChangeCanExecute();
         ((Command)ClearFormCommand).ChangeCanExecute();
     }
-    public async Task NavigateToOtherPage()
+    public async Task DisplayMessages()
     {
         await Shell.Current.DisplayAlertAsync("ניווט", "מעבר לדף הפלייליסט", "אישור");
       bool cancel=  await Shell.Current.DisplayAlertAsync("ניווט", "האם בטוח", "אישור", "ביטול");
         if (cancel == false)
             await Shell.Current.DisplayActionSheetAsync("מסך שיתוף", "ok", "ביטול", "ווצאפ", "טלגרם", "פייסבוק");
-        Shell.Current.DisplayPromptAsync("ניווט", "הזן שם משתמש", "אישור", "ביטול", "שם משתמש", -1, Keyboard.Text, "ברוך");
-        await Shell.Current.GoToAsync($"MyPlayist?message={StatusMessage}");
+        await Shell.Current.DisplayPromptAsync("ניווט", "הזן שם משתמש", "אישור", "ביטול", "שם משתמש", -1, Keyboard.Text, "ברוך");
+      
+        
+       
 
 
     }

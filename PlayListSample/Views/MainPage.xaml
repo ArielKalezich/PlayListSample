@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:PlayListSample.ViewModels"
     xmlns:models="clr-namespace:PlayListSample.Models"
-    
+    Title="גומא"
     x:DataType="vm:MainViewModel"
     FlowDirection="RightToLeft">
 
@@ -23,7 +23,7 @@
                 HorizontalOptions="Center"
                 IsRunning="{Binding IsLoading}"
                 IsVisible="{Binding IsLoading}" />
-            <Button Text="ניווט למסך אחר" Command="{Binding NavigateToOtherPageCommand}"></Button>
+           
             <!--  כרטיסייה 1: דפדוף ותצוגת פריט בודד מתוך השירות הסטטי  -->
             <CollectionView SelectionMode="Multiple"  ItemsSource="{Binding Videos}">
                 <CollectionView.EmptyView>
