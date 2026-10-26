@@ -21,11 +21,13 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-  
 
-       
-       
-        <!--Tab Title="דף 2">
+    <ShellContent Title="דף הבית"
+              ContentTemplate="{DataTemplate views:MainPage}"
+              Route="MainPage"/>
+
+
+    <!--Tab Title="דף 2">
             <ShellContent Title=""
                 ContentTemplate="{DataTemplate views:PlayListItem}"
                 Route="ListItem"
