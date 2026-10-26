@@ -21,19 +21,9 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    <TabBar Title="תפריט">
-        <Tab Title="דף 1">
-        <ShellContent
-Title="איילת"
-ContentTemplate="{DataTemplate views:MainPage}"
-Route="MainPage" />
-            <ShellContent Title="דף דוגמה"
-    ContentTemplate="{DataTemplate views:PageSample3}"
-    Route="ListItem"
-    >
+  
 
-            </ShellContent>
-        </Tab>
+       
        
         <!--Tab Title="דף 2">
             <ShellContent Title=""
@@ -44,7 +34,7 @@ Route="MainPage" />
             </ShellContent>
         </Tab-->
 
-    </TabBar>
+   
     <!--FlyoutItem FlyoutIcon="dotnet_bot.png" Title="דף ראשי">
       <ShellContent
       Title="איילת"
